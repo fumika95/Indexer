@@ -23,11 +23,11 @@ public class Indexer {
 		
 		tree = new IndexerTree();
 		
-		//FileInputStream file = new FileInputStream(args[1]);
-		//BufferedInputStream buff = new BufferedInputStream(file);
-		BufferedInputStream buff = new BufferedInputStream(new FileInputStream("test.txt"));
-		int next = buff.read();
+		FileInputStream file = new FileInputStream(args[0]);
+		BufferedInputStream buff = new BufferedInputStream(file);
 		
+		//start reading file
+		int next = buff.read();
 		while(next!=-1){
 			//start from root node
 			TreeNode cur_node = tree.getRoot();
@@ -35,43 +35,41 @@ public class Indexer {
 			while(next != -1 && !isValid(next)){
 				next = buff.read();
 			}
+			//not end of file
 			if(next != -1){
-			boolean loop = true;
-			while(loop){
-				char letter = (char)next;
-				next = buff.read();
-				//continue adding to child if next is still same word
-				if(next == -1 || !isValid(next))
-					loop = false;
-				//add new node to children
-				int count;
-				if(loop) //is not last char of a word
-					count = 0;
-				else //last
-					count = 1;
-				//
-				//
-				//System.out.println(letter + " " + (char)next + " " + loop);
-				TreeNode nextChild = cur_node.getchild(Character.toLowerCase(letter));
-				if(nextChild == null){
-					TreeNode child = new TreeNode(Character.toLowerCase(letter), cur_node, count);
-					cur_node.setChild(child);
-					cur_node = child;
-				}else if(count ==1){
-					nextChild.count();
-					cur_node = nextChild;
-				}else
-					cur_node = nextChild;
-			}
+				boolean loop = true;
+				while(loop){
+					char letter = (char)next;
+					next = buff.read();
+					//continue adding to child if next is still same word
+					if(next == -1 || !isValid(next))
+						loop = false;
+					//add new node to children
+					int count;
+					if(loop) //is not last char of a word
+						count = 0;
+					else //last
+						count = 1;
+					TreeNode nextChild = cur_node.getchild(Character.toLowerCase(letter));
+					if(nextChild == null){//the letter does not exit yet; add new child
+						TreeNode child = new TreeNode(Character.toLowerCase(letter), cur_node, count);
+						cur_node.setChild(child);
+						cur_node = child;
+					}else if(count ==1){//child exist and end of the word; increment count of word
+						nextChild.count();
+						cur_node = nextChild;
+					}else // child exist but not end of the word yet, keep reading
+						cur_node = nextChild;
+				}
 			}
 		}
 		buff.close();
-		//System.out.println("out");
-		//System.out.println(tree.getRoot().getChildren().size());
 		
+		//make a list of treenode and sort from 1st to last
 		result = tree.makeList();
 		result.sort();
 		
+		//print out result
 		int i = 0;
 		while(i < 10 && i < result.size()){
 			System.out.println(i+1 + ": " + recursive_print(result.get(i), i, 1));
@@ -82,6 +80,9 @@ public class Indexer {
 
 	
 
+	/*
+	*helper method to check is the char value is a valid character or not
+	*/
 	private static boolean isValid(int next) {
 		if(next >= 48 && next<= 57) //is number
 			return true;
@@ -95,6 +96,9 @@ public class Indexer {
 
 
 
+	/*
+	* helper method to recursively track each node and get result string to print out
+	*/
 	private static String recursive_print(TreeNode cur_node, int i, int doPrint) {
 		
 		String result = "";
