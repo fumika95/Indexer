@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/*
+* original tree class that stores root node and array of nodes to store nodes that represent words
+*
+*/
 
 public class IndexerTree {
 
@@ -12,7 +15,7 @@ public class IndexerTree {
 	
 	
 	/*
-	 * Tree Map to store all words and results 
+	 * array to store nodes that represent words
 	 */
 	private NodeArray result;
 	
@@ -33,13 +36,17 @@ public class IndexerTree {
 	}
 	
 	
+	/*
+	* method to add all nodes that represent words to result array
+	*/
 	public NodeArray makeList(){
 		recursion(root);
-		
-		
 		return result;
 	}
 
+	/*
+	* helper recursion method to track all nodes of tree and find nodes that represen words
+	*/
 	private void recursion(TreeNode cur_node) {
 		
 		if(cur_node.getCount() >0){
