@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 
-
+/*
+* main of the program that takes file name fromm commanline and run the program to get output
+*/
 public class Indexer {
 
 	/*
@@ -15,7 +17,7 @@ public class Indexer {
 	private static IndexerTree tree;
 	
 	/*
-	 * map that store the final result;
+	 * array of node that store the final result;
 	 */
 	private static NodeArray result;
 	
@@ -25,7 +27,6 @@ public class Indexer {
 		
 		FileInputStream file = new FileInputStream(args[0]);
 		BufferedInputStream buff = new BufferedInputStream(file);
-		//BufferedInputStream buff = new BufferedInputStream(new FileInputStream("test.txt"));
 		int next = buff.read();
 		
 		while(next!=-1){
@@ -65,9 +66,7 @@ public class Indexer {
 			}
 			}
 		}
-		buff.close();
-		//System.out.println("out");
-		//System.out.println(tree.getRoot().getChildren().size());
+		buff.close()
 		
 		result = tree.makeList();
 		result.sort();
@@ -87,8 +86,11 @@ public class Indexer {
 			i++;
 		}
 		
-		if(correct == i)
+		if(correct == i){
 			System.out.println("passed correct output");
+			for(int j = 0; j < 10 ; j++)
+				System.out.println(j+1 + ":  " + answer[i]);
+		}
 		
 	}
 
