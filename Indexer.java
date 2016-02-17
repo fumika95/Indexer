@@ -89,7 +89,7 @@ public class Indexer {
 		if(correct == i){
 			System.out.println("passed correct output");
 			for(int j = 0; j < 10 ; j++)
-				System.out.println(j+1 + ":  " + answer[i]);
+				System.out.println(j+1 + ":  " + answer[j]);
 		}
 		
 	}
