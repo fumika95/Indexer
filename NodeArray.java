@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/*
+* original array class that stores tree nodes and manage values of tree nodes
+*
+*/
 
 public class NodeArray  {
 
@@ -10,11 +14,12 @@ public class NodeArray  {
 	private int[] childIndex;
 	
 	/*
-	 * array list that actually holds the children node
+	 * array list that actually holds the children nodes
 	 */
 	private ArrayList<TreeNode> children;
 	
 	private int size;
+	
 	
 	public NodeArray(){
 		size = 1;
@@ -22,6 +27,9 @@ public class NodeArray  {
 		children = new ArrayList<TreeNode>();
 	}
 	
+	/*
+	* add new tree node only if the letter does not exist yet
+	*/
 	public boolean add(TreeNode newNode){
 		char letter = newNode.getLetter();
 		boolean addSuccess = (childIndex[letter]==0);
@@ -33,12 +41,15 @@ public class NodeArray  {
 		return addSuccess;
 	}
 	
+	/*
+	* simply add tree nodes to the list
+	*/
 	public boolean addNode(TreeNode newNode){
 		return children.add(newNode);
 	}
 	
 	/*
-	 * use letter to get treenode
+	 * use letter to get treenode by hash indexing
 	 */
 	public TreeNode getNode(int index) {
 		if(index <= 0 || index >= 123)
@@ -55,7 +66,7 @@ public class NodeArray  {
 	}
 	
 	/*
-	 * get tree node using the index of array
+	 * get tree node using the index of arraylist
 	 */
 	public TreeNode get(int index){
 		if(index < 0 || index >= children.size())
