@@ -1,68 +1,85 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 
 /*
-* original tree class that stores root node and array of nodes to store nodes that represent words
+* original array class that stores tree nodes and manage values of tree nodes
 *
 */
 
-public class IndexerTree {
+public class NodeArray  {
 
 	/*
-	 * root of the tree; the treenode does not actually represent any letter
+	 *  int array that stores index of each node using the char value as index
 	 */
-	private TreeNode root;
-	
+	private int[] childIndex;
 	
 	/*
-	 * array to store nodes that represent words
+	 * array list that actually holds the children nodes
 	 */
-	private NodeArray result;
+	private ArrayList<TreeNode> children;
 	
-	/*
-	 * size of the tree
-	 */
-	int size;
+	private int size;
 	
 	
-	public IndexerTree(){
-		root = new TreeNode(' ',null, 0);
-		size = 0;
-		result = new NodeArray();
+	public NodeArray(){
+		size = 1;
+		childIndex = new int[123]; // 123 is the largest ascii value of a-z, A-Z, and 0-9
+		children = new ArrayList<TreeNode>();
 	}
 	
-	public TreeNode getRoot(){
-		return root;
-	}
-	
-	
 	/*
-	* method to add all nodes that represent words to result array
+	* add new tree node only if the letter does not exist yet
 	*/
-	public NodeArray makeList(){
-		recursion(root);
-		return result;
+	public boolean add(TreeNode newNode){
+		char letter = newNode.getLetter();
+		boolean addSuccess = (childIndex[letter]==0);
+		if(addSuccess){
+			children.add(newNode);
+			childIndex[letter] = size;
+			size++;
+		}
+		return addSuccess;
 	}
-
+	
 	/*
-	* helper recursion method to track all nodes of tree and find nodes that represen words
+	* simply add tree nodes to the list
 	*/
-	private void recursion(TreeNode cur_node) {
-		
-		if(cur_node.getCount() >0){
-			//find a word, add to map			
-			result.addNode(cur_node);
+	public boolean addNode(TreeNode newNode){
+		return children.add(newNode);
+	}
+	
+	/*
+	 * use letter to get treenode by hash indexing
+	 */
+	public TreeNode getNode(int index) {
+		if(index <= 0 || index >= 123)
+			return null;
+		int ind = childIndex[index];
+		TreeNode target;
+		if(ind >= 1){
+			target = children.get(ind-1);
+		}else{
+			target = null;
 		}
 		
-		NodeArray children = cur_node.getChildren();
-		//recursive call
-		if(children != null){
-			for(int i = 0; i < children.size();i++){
-				recursion(children.get(i));
-			}
-		}
-		
+		return target;
+	}
+	
+	/*
+	 * get tree node using the index of arraylist
+	 */
+	public TreeNode get(int index){
+		if(index < 0 || index >= children.size())
+			return null;
+		return children.get(index);
 	}
 
+	public int size() {
+		return children.size();
+	}
 	
+	public void sort(){
+		Collections.sort(children);
+	}
+
 }
