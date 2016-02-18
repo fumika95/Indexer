@@ -66,7 +66,7 @@ public class IndexerTester{
 
 		System.out.println("\nFile name: " + file_name);
 		for(int i = 0; i < 10; i++){
-			System.out.printf("No.%2d: %10s\n",  i+1, target.recursive_print(result.get(i)));
+			System.out.printf("No.%2d: %10s   Appeared: %4d times\n",  i+1, target.recursive_print(result.get(i)), result.get(i).getCount());
 		}
 	}
 }
