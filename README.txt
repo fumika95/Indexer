@@ -2,7 +2,8 @@
 This is a simple distributed file indexer.
 
 * Files
-  - Indexer.java : main executable file which reads a plain text file and print out the 
+  - IndexerTester: executable files that can run simple tests or any file user passed as argument
+  - Indexer.java : main file which reads a plain text file and print out the 
     result of top 10 words that appeared in the text file
     
   - IndexerTree.java : tree object file that stores the words by charachter
@@ -12,6 +13,7 @@ This is a simple distributed file indexer.
   
 
 * to run the program
- - use   javac Indexer.java  to compile
- - use   java Indexer [name of text file]   to run the program
+ - use   javac IndexerTester.java  to compile
+ - use   java IndexerTester [name of text file]   to run the grogram with the file or
+ - use   java IndexerTester test     to run the simple tests
   
