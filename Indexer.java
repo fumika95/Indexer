@@ -12,12 +12,12 @@ public class Indexer {
 	/*
 	 * tree to store words and count each time
 	 */
-	private IndexerTree tree;
+	public IndexerTree tree;
 	
 	/*
 	 * map that store the final result;
 	 */
-	private NodeArray result;
+	public NodeArray result;
 	
 	public Indexer(String args) throws IOException{
 		
